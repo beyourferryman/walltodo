@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">桌面待办</string>
+    <string name="edit_hint">输入要做的事，例如：\n下午 3 点 开会\n记得取快递</string>
+    <string name="btn_set">设为桌面提醒</string>
+    <string name="btn_restore">已完成，还原桌面</string>
+    <string name="hint_default">首次使用：点击下方按钮会弹出"所有文件访问权限"授权页，授权后 App 会自动备份当前壁纸并设置待办提醒</string>
+    <string name="hint_no_backup_perm_ok">已获得权限。点击下方按钮，App 会自动备份当前壁纸并设置待办提醒</string>
+    <string name="hint_active">当前桌面已是待办提醒壁纸，完成后请点击下方按钮还原</string>
+    <string name="status_set_ok">已设置成功，亮屏即可看到提醒</string>
+    <string name="status_restore_ok">已还原原桌面</string>
+    <string name="status_no_backup">没有可还原的备份</string>
+    <string name="status_empty">请先输入待办内容</string>
+    <string name="status_request_permission">正在跳转到权限设置页，请开启"所有文件访问权限"后返回</string>
+    <string name="status_permission_denied">未授予权限，无法备份原壁纸。请重新点击按钮并在设置页开启权限</string>
+</resources>
