@@ -9,11 +9,15 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.view.MotionEvent
+import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import com.walltodo.app.databinding.ActivityMainBinding
 import java.util.concurrent.Executors
 
@@ -152,6 +156,31 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * 点击输入框以外的任意区域收起输入法。
+     * 用 dispatchTouchEvent 拦截 ACTION_DOWN——ScrollView 会消费普通触摸，
+     * Activity.onTouchEvent 收不到，必须在分发阶段处理。
+     */
+    override fun dispatchTouchEvent(ev: MotionEvent): Boolean {
+        if (ev.action == MotionEvent.ACTION_DOWN) {
+            val v = currentFocus
+            if (v is android.widget.EditText) {
+                val loc = IntArray(2)
+                v.getLocationOnScreen(loc)
+                val inside = ev.rawX >= loc[0] && ev.rawX <= loc[0] + v.width &&
+                        ev.rawY >= loc[1] && ev.rawY <= loc[1] + v.height
+                if (!inside) hideKeyboard()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
+    /** 收起输入法键盘（跨版本：AndroidX WindowInsetsController） */
+    private fun hideKeyboard() {
+        val controller = WindowCompat.getInsetsController(window, window.decorView)
+        controller.hide(WindowInsetsCompat.Type.ime())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -161,6 +190,7 @@ class MainActivity : AppCompatActivity() {
         updateUiState()
 
         binding.btnSetWallpaper.setOnClickListener {
+            hideKeyboard()
             val text = binding.editText.text.toString().trim()
             if (text.isEmpty()) {
                 binding.textStatus.text = getString(R.string.status_empty)
@@ -180,6 +210,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnRestore.setOnClickListener {
+            hideKeyboard()
             if (!wallpaperHelper.hasBackup()) {
                 binding.textStatus.text = getString(R.string.status_no_backup)
                 return@setOnClickListener
@@ -188,6 +219,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.btnSaveGallery.setOnClickListener {
+            hideKeyboard()
             // 读当前壁纸需要读权限；Android 9- 写入相册还需 WRITE
             if (!galleryReady()) {
                 pendingAction = ACTION_SAVE
@@ -200,12 +232,14 @@ class MainActivity : AppCompatActivity() {
 
         // 原壁纸卡片：仅用户主动更换时才改变原壁纸
         binding.cardManual.setOnClickListener {
+            hideKeyboard()
             showWallpaperSourceDialog()
         }
     }
 
     /** 原壁纸更换方式：从相册选图 / 重新获取当前桌面 */
     private fun showWallpaperSourceDialog() {
+        hideKeyboard()
         val options = arrayOf(
             getString(R.string.wall_pick_gallery),
             getString(R.string.wall_recapture)
