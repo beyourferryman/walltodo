@@ -4,34 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="@color/bg_light">
+    android:background="@color/bg_light"
+    android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="24dp"
-        android:gravity="center_horizontal">
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="36dp"
+        android:paddingBottom="24dp">
 
+        <!-- 大标题 + 一句话副标题 -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
             android:text="@string/app_name"
-            android:textSize="26sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:textColor="@color/text_primary" />
 
         <TextView
-            android:id="@+id/textHint"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            android:gravity="center"
-            android:text="@string/hint_default"
-            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:text="@string/slogan"
+            android:textSize="15sp"
             android:textColor="@color/text_secondary" />
 
+        <!-- 待办输入 -->
         <EditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
@@ -40,38 +42,142 @@
             android:minLines="4"
             android:gravity="top|start"
             android:hint="@string/edit_hint"
+            android:textColorHint="@color/text_tertiary"
             android:inputType="textMultiLine"
-            android:background="@color/edit_bg"
+            android:background="@drawable/bg_input"
             android:padding="16dp"
             android:textSize="16sp"
             android:lineSpacingExtra="4dp" />
 
-        <Button
-            android:id="@+id/btnSetWallpaper"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="@string/btn_set"
-            android:textSize="16sp"
-            android:padding="14dp" />
-
-        <Button
-            android:id="@+id/btnRestore"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        <TextView
+            android:id="@+id/textHint"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/btn_restore"
-            android:textSize="16sp"
-            android:padding="14dp" />
+            android:lineSpacingExtra="2dp"
+            android:text="@string/hint_default"
+            android:textSize="12sp"
+            android:textColor="@color/text_tertiary" />
 
+        <!-- 主操作 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSetWallpaper"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/btn_set"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/purple_500"
+            app:cornerRadius="14dp"
+            app:elevation="0dp" />
+
+        <!-- 次操作：tinted 紫 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRestore"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_restore"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:textColor="@color/purple_500"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/btn_tinted_bg"
+            app:cornerRadius="14dp"
+            app:elevation="0dp" />
+
+        <!-- 工具操作：灰底 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveGallery"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/btn_save_gallery"
+            android:textSize="15sp"
+            android:textColor="@color/text_primary"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            app:backgroundTint="@color/btn_secondary_bg"
+            app:cornerRadius="14dp"
+            app:elevation="0dp" />
+
+        <!-- 原壁纸卡片：缩略图 + 状态，点击设置/更换 -->
+        <LinearLayout
+            android:id="@+id/cardManual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:orientation="horizontal"
+            android:background="@color/bg_group"
+            android:padding="14dp"
+            android:gravity="center_vertical"
+            android:clickable="true"
+            android:focusable="true">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="56dp"
+                android:layout_height="124dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp"
+                app:cardUseCompatPadding="false">
+
+                <ImageView
+                    android:id="@+id/thumbWallpaper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:background="@drawable/bg_thumb_placeholder"
+                    android:contentDescription="@string/wallpaper_label" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallpaper_label"
+                    android:textSize="12sp"
+                    android:textColor="@color/text_tertiary" />
+
+                <TextView
+                    android:id="@+id/textWallpaperState"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/wall_state_none"
+                    android:textSize="15sp"
+                    android:textColor="@color/text_primary" />
+
+                <TextView
+                    android:id="@+id/textWallpaperAction"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/wall_action_none"
+                    android:textSize="13sp"
+                    android:textColor="@color/purple_500" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 状态反馈 -->
         <TextView
             android:id="@+id/textStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
-            android:textSize="14sp"
+            android:lineSpacingExtra="2dp"
+            android:textSize="13sp"
             android:textColor="@color/text_secondary" />
 
     </LinearLayout>

@@ -2,11 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
+    <!-- 品牌紫：与视频/封面视觉一致 -->
+    <color name="purple_500">#FF6E5AF2</color>
+    <color name="purple_700">#FF5A46E0</color>
+    <!-- iOS 系统灰阶 -->
     <color name="bg_light">#FFFFFFFF</color>
-    <color name="text_primary">#FF111111</color>
-    <color name="text_secondary">#FF666666</color>
-    <color name="edit_bg">#FFF2F2F2</color>
+    <color name="bg_group">#FFF2F2F7</color>
+    <color name="bg_input">#FFF2F2F7</color>
+    <color name="btn_secondary_bg">#FFE9E9EE</color>
+    <color name="btn_tinted_bg">#FFECE9FD</color>
+    <color name="text_primary">#FF1C1C1E</color>
+    <color name="text_secondary">#FF8E8E93</color>
+    <color name="text_tertiary">#FFC7C7CC</color>
+    <color name="line_light">#FFE5E5EA</color>
+    <color name="edit_bg">#FFF2F2F7</color>
 </resources>
