@@ -43,4 +43,5 @@
     <string name="crop_load_failed">无法读取所选图片</string>
     <string name="crop_save_failed">保存失败，请重试</string>
     <string name="crop_too_small">裁剪区域太小，请放大后重试</string>
+    <string name="copyright_line">原创来自 bilibili：星野Sh1n</string>
 </resources>
